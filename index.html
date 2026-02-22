@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Music Builder</title>
+
+<style>
+body{
+    background:#111;
+    color:white;
+    font-family:Arial;
+    text-align:center;
+}
+
+.section{
+    margin:20px;
+    padding:20px;
+    background:#222;
+    border-radius:10px;
+}
+
+button{
+    margin:5px;
+    padding:10px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.play{
+    background:green;
+    color:white;
+}
+
+.stop{
+    background:red;
+    color:white;
+}
+</style>
+
+</head>
+<body>
+
+<h1>🎵 Music Builder</h1>
+
+<div class="section">
+<h2>Drums</h2>
+
+<button onclick="selectTrack('drums','audio/drums1.mp3')">Drums 1</button>
+<button onclick="selectTrack('drums','audio/drums2.mp3')">Drums 2</button>
+
+</div>
+
+<div class="section">
+<h2>Lead</h2>
+
+<button onclick="selectTrack('lead','audio/lead1.mp3')">Lead 1</button>
+<button onclick="selectTrack('lead','audio/lead2.mp3')">Lead 2</button>
+
+</div>
+
+<div class="section">
+<h2>Chords</h2>
+
+<button onclick="selectTrack('chords','audio/chords1.mp3')">Chords 1</button>
+<button onclick="selectTrack('chords','audio/chords2.mp3')">Chords 2</button>
+
+</div>
+
+<div class="section">
+<h2>Bass</h2>
+
+<button onclick="selectTrack('bass','audio/bass1.mp3')">Bass 1</button>
+<button onclick="selectTrack('bass','audio/bass2.mp3')">Bass 2</button>
+
+</div>
+
+<br>
+
+<button class="play" onclick="playAll()">▶ Play All</button>
+<button class="stop" onclick="stopAll()">⏹ Stop All</button>
+
+<script>
+
+let currentTracks = {
+    drums:null,
+    lead:null,
+    chords:null,
+    bass:null
+};
+
+function selectTrack(type, file){
+
+    if(currentTracks[type]){
+        currentTracks[type].pause();
+    }
+
+    let audio = new Audio(file);
+    audio.loop = true;
+
+    currentTracks[type] = audio;
+}
+
+function playAll(){
+
+    for(let type in currentTracks){
+
+        if(currentTracks[type]){
+            currentTracks[type].currentTime = 0;
+            currentTracks[type].play();
+        }
+
+    }
+
+}
+
+function stopAll(){
+
+    for(let type in currentTracks){
+
+        if(currentTracks[type]){
+            currentTracks[type].pause();
+            currentTracks[type].currentTime = 0;
+        }
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
